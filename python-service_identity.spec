@@ -8,13 +8,13 @@
 Summary:	Service identity verification for pyOpenSSL & cryptography
 Summary(pl.UTF-8):	Weryfikacja tożsamości usługi dla modułów pyOpenSSL i cryptography
 Name:		python-service_identity
-Version:	18.1.0
-Release:	2
+Version:	21.1.0
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/service_identity/
-Source0:	https://files.pythonhosted.org/packages/source/s/service-identity/service_identity-%{version}.tar.gz
-# Source0-md5:	c6b8bac93e7d899a1da313a19cc6570a
+Source0:	https://files.pythonhosted.org/packages/source/s/service-identity/service-identity-%{version}.tar.gz
+# Source0-md5:	5e5c195d8fcedc72f9068be2ad9b5a13
 URL:		https://pypi.org/project/service_identity/
 %if %{with python2}
 BuildRequires:	python-modules >= 1:2.7
@@ -42,7 +42,8 @@ BuildRequires:	python3-pytest
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc}
-BuildRequires:	sphinx-pdg
+BuildRequires:	python3-furo
+BuildRequires:	sphinx-pdg-3
 %endif
 Requires:	python-modules >= 1:2.7
 BuildArch:	noarch
@@ -90,13 +91,14 @@ API documentation for Python service_identity module.
 Dokumentacja API modułu Pythona service_identity.
 
 %prep
-%setup -q -n service_identity-%{version}
+%setup -q -n service-identity-%{version}
 
 %build
 %if %{with python2}
 %py_build
 
 %if %{with tests}
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 %{__python} -m pytest tests
 %endif
 %endif
@@ -105,12 +107,14 @@ Dokumentacja API modułu Pythona service_identity.
 %py3_build
 
 %if %{with tests}
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 %{__python3} -m pytest tests
 %endif
 %endif
 
 %if %{with doc}
-%{__make} -C docs html
+%{__make} -C docs html \
+	SPHINXBUILD=sphinx-build-3
 %endif
 
 %install
