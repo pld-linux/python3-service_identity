@@ -9,7 +9,7 @@ Summary:	Service identity verification for pyOpenSSL & cryptography
 Summary(pl.UTF-8):	Weryfikacja tożsamości usługi dla modułów pyOpenSSL i cryptography
 Name:		python-service_identity
 Version:	21.1.0
-Release:	3
+Release:	4
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/service_identity/
